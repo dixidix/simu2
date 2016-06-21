@@ -283,6 +283,7 @@ function core_login_generate_password_reset ($user) {
  * @return string url the user should be redirected to.
  */
 function core_login_get_return_url() {
+    
     global $CFG, $SESSION, $USER;
     // Prepare redirection.
     if (user_not_fully_set_up($USER)) {
