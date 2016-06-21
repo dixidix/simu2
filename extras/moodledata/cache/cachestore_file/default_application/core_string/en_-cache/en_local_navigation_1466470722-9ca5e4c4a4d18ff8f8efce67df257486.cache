@@ -1,0 +1,22 @@
+a:5:{s:10:"pluginname";s:17:"Custom Navigation";s:8:"activate";s:30:"Enabled Custom Menu Navigation";s:11:"stractivate";s:52:"Enables add new items in Navigation Menu at the end.";s:5:"items";s:25:"Custom Navigation items: ";s:8:"stritems";s:546:"You can add custom items to the Navigation Menu using the following syntax.
+Identical to that used in the custom menu at theme settings.
+<br>
+Example:
+<br>
+Moodle community
+<br>
+-Moodle free support|http://moodle.org/support
+<br>
+-Moodle development|http://moodle.org/development
+<br>
+--Moodle Tracker|http://tracker.moodle.org
+<br>
+--Moodle Docs|http://docs.moodle.org
+<br>
+-Moodle News|http://moodle.org/news
+<br>
+Moodle company
+<br>
+-Moodle commercial hosting|http://moodle.com/hosting
+<br>
+-Moodle commercial support|http://moodle.com/support";}
