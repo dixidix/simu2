@@ -16,6 +16,23 @@ cscw.controller('mainController', function($scope,$http,$window){
 	$scope.clearStorage = function(){
 		sessionStorage.clear();
 	}
+	if(sessionStorage.getItem("sid")){
+		var session = JSON.parse(sessionStorage.getItem("sid"));
+		$scope.sskey = JSON.parse(sessionStorage.getItem("sskey"));
+		$http.get('./php/set_user.php', {params:{ sid: session }}).then(function success(response){
+			console.log(response.data);
+			if(response.data.length){
+				sessionStorage.user = JSON.stringify(response.data);
+				$scope.showUser = true;
+				var user = JSON.parse(sessionStorage.getItem("user"));
+				if(user[0].firstname){
+					$scope.userLogged = user[0].firstname;
+				}
+			} else {
+				$scope.showUser = false;
+			}
+		});
+	}
 	if(sessionStorage.getItem("user")){
 		$scope.showUser = true;
 		var user = JSON.parse(sessionStorage.getItem("user"));
@@ -62,8 +79,7 @@ cscw.controller('myMsgCtrl', function($scope, $http, $state){
 
 	$scope.sendMail = sendMail;
 	$scope.deleteMail = deleteMail;
-	var user = JSON.parse(sessionStorage.getItem("user"));
-	$http.get('./php/get_messages.php', {params:{ userid: user[0].id }})
+	$http.get('./php/get_messages.php', {params:{ userid: JSON.parse(sessionStorage.getItem("user"))[0].userid }})
 	.then(function success(response){
 		$scope.emails = response.data;
 	},
@@ -102,12 +118,12 @@ cscw.controller('myMsgCtrl', function($scope, $http, $state){
 			console.log(email);
 			$scope.emailContext.to = email.useridfrom;
 			$scope.emailContext.subject = "RE: " + email.subject;
-			$scope.emailContext.from = JSON.parse(sessionStorage.getItem("user"))[0].id;
+			$scope.emailContext.from = JSON.parse(sessionStorage.getItem("user"))[0].userid;
 			$scope.emailContext.fullmessage = "";
 		} else {
 			$scope.emailContext.subject = '';
 			$scope.emailContext.to = "";
-			$scope.emailContext.from = JSON.parse(sessionStorage.getItem("user"))[0].id;
+			$scope.emailContext.from = JSON.parse(sessionStorage.getItem("user"))[0].userid;
 			$scope.emailContext.fullmessage = "";
 		}
 	}
@@ -138,9 +154,10 @@ cscw.controller('myPostsCtrl', function($scope, $http, uploadService, $state){
 		filepost:'',
 	};
 	$scope.getFile = function(file){
-		console.log(file);
 		$http.get('./php/get_file.php', {params:{ path: file.filepath, filename: file.filename ,id: file.ownerId }}).then(function success(response){
-			  window.open('/foro/' + file.filepath, '_self');
+			var href = "/foro/"+file.filepath;
+			$('#' + file.created).attr("href", href);
+			$('#' + file.created).attr("download", file.filesystemname);
 		},
 		function onError(error){
 			console.log(error);
@@ -161,14 +178,14 @@ cscw.controller('myPostsCtrl', function($scope, $http, uploadService, $state){
 			$scope.status = status;
 		});	
 	}
-	$http.get('./php/get_userPost.php', {params:{ userid: JSON.parse(sessionStorage.getItem("user"))[0].id }}).then(function success(response){
+	$http.get('./php/get_userPost.php', {params:{ userid: JSON.parse(sessionStorage.getItem("user"))[0].userid }}).then(function success(response){
 		$scope.ownerPost = response.data || [];
 	},
 	function onError(error){
 		console.log(error);
 	});
 	$scope.savePost = function(file){
-		$scope.file.ownerId = JSON.parse(sessionStorage.getItem("user"))[0].id;
+		$scope.file.ownerId = JSON.parse(sessionStorage.getItem("user"))[0].userid;
 		$scope.file.created  = (new Date).getTime();
 		console.log($scope.file);
 		uploadService.uploadFile($scope.file).then(function (res) {

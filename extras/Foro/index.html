@@ -3,6 +3,7 @@
 <head>
 	<title>Sharefiles</title>
 	<link rel="icon" type="image/png" href="./styles/mixcloud.png">
+	<link href="./styles/material-icons.css" type="text/css" rel="stylesheet">
 	<link href="./styles/main.css" type="text/css" rel="stylesheet">
 	<link rel="stylesheet" href="./styles/materialize.min.css">	
 	<link href="./styles/icon.css" rel="stylesheet">
@@ -16,11 +17,12 @@
 			<a href="#" ui-sref="home" class="brand-logo" style="padding-left: 70px;">	ShareFiles</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="#" ui-sref="home">Home </a></li>
+				<li><a href="http://192.168.118.2/moodle/">Moodle </a></li>
 				<li ng-show="showUser"><a href="#" ui-sref="messages">Mis Mensajes </a></li>
 				<li ng-show="showUser"><a href="#" ui-sref="posts">Mis Archivos </a></li>
 				<li ng-show="!showUser"><a href="#login" modal>Ingresar en Moodle</a></li>
 				<li ng-show="showUser"><a href="#"> {{ userLogged }}</a></li>
-				<li ng-show="showUser"><a href="http://localhost/moodle/login/logout.php" data-ng-click="clearStorage()"> Salir de Moodle</a></li>	
+				<li ng-show="showUser"><a href="http://192.168.118.2/moodle/login/logout.php?sesskey={{sskey}}" data-ng-click="clearStorage()"> Salir de Moodle</a></li>	
 			</ul>
 		</div>
 	</nav>
@@ -37,7 +39,7 @@
 		</div>
 		<div id="login" class="modal" style="width:30%;min-height:550px!important;">
 		<div class="imglogin"><img  style="max-width: 35%;margin-left: 33%;margin-top: 10%;position: absolute;" src="./styles/mixcloud.png"></div>
-			<form style="margin-top: 53%;" class="col s12" action="http://localhost/moodle/login/index.php" method="post" name="form" id="form">
+			<form style="margin-top: 53%;" class="col s12" action="http://192.168.118.2/moodle/login/index.php" method="post" name="form" id="form">
 				<div class="modal-content">
 					<div class="row">					
 						<div class="row">

@@ -1,8 +1,8 @@
 <?php 
-$db_host =  "localhost";
+$db_host =  "192.168.118.2";
 $db_name = "moodle";
-$db_user = "root";
-$db_pass = "";
+$db_user = "moodleadm";
+$db_pass = "1234";
 
 $conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
 if($conn->connect_error){

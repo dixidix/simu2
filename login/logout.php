@@ -60,5 +60,4 @@ foreach($authsequence as $authname) {
 }
 
 require_logout();
-echo "<script>alert('loggout');</script>";
 redirect($redirect);

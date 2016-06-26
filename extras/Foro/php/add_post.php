@@ -22,10 +22,13 @@ if(!empty($_FILES['filepost'])){
 	$path = "files/".$ownerId."/".$fileSystemname;
 	$ftp_path = $ownerId."/".$fileSystemname;
 }
-if (ftp_nlist($ftp_conn, $ownerId) == false) {
-	ftp_mkdir($ftp_conn, $ownerId);
+if(ftp_chdir($ftp_conn, "files")){
+	if (ftp_nlist($ftp_conn, $ownerId) == false) {
+		ftp_mkdir($ftp_conn, $ownerId);
+	}
+	ftp_put($ftp_conn, $ftp_path, $_FILES['filepost']['tmp_name'], FTP_BINARY);
 }
-ftp_put($ftp_conn, $ftp_path, $_FILES['filepost']['tmp_name'], FTP_BINARY);
+
 
 
 ftp_close($ftp_conn);

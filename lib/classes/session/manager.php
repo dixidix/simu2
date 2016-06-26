@@ -280,7 +280,7 @@ class manager {
 
         $sid = session_id();
         $sskey = sesskey();
-        echo "<script>sessionStorage.sid = JSON.stringify('".$sid."');sessionStorage.sskey = JSON.stringify('".$sskey."');</script>";
+        // echo "<script>sessionStorage.sid = JSON.stringify('".$sid."');sessionStorage.sskey = JSON.stringify('".$sskey."');</script>";
         if (!$sid) {
             // No session, very weird.
             error_log('Missing session ID, session not started!');

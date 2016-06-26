@@ -1,8 +1,8 @@
 	<div class="row">
 		<a class="waves-effect btn white cyan-text right" href="#addPost" modal><i class="material-icons prefix" style="position:absolute;left:5px;">note_add</i>Agregar Archivo</a>
 	</div>
-	<div class="card" ng-repeat="post in ownerPost">
-		<ul class="card-content collapsible" data-collapsible="accordion" watch>
+	<div class="card" ng-repeat="post in ownerPost track by $index">
+		<ul class="card-content collapsible" data-collapsible="accordion" ng-click="getFile(post)" watch>
 			<li>
 				<div class="collapsible-header" style="border-bottom:0;">
 				<p style="font-style: italic;color: #ccc;font-size: 13px;">{{post.created * 1000 | date:'dd/MM/yyyy HH:mm'}}</p>
@@ -16,7 +16,7 @@
 					<p>
 						{{post.detail}}
 					</p>
-					<a  ng-click="getFile(post)" target="_self" class="waves-effect btn-flat blue-text" download>Descargar</a><a ui-sref="posts" ui-sref-opts="{reload: true}" class="waves-effect btn-flat red-text" data-ng-click="deletePost(post.postId)">Eliminar</a>
+					<a id="{{post.created}}"  target="_self" class="waves-effect btn-flat blue-text" download>Descargar</a><a ui-sref="posts" ui-sref-opts="{reload: true}" class="waves-effect btn-flat red-text" data-ng-click="deletePost(post.postId)">Eliminar</a>
 				</div>
 			</li>
 		</ul>
